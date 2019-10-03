@@ -1,5 +1,10 @@
 package lk.techtalks.rsocket.spring.security;
 
+import io.netty.handler.ssl.SslContext;
+import io.netty.handler.ssl.SslContextBuilder;
+import io.netty.handler.ssl.SslProvider;
+import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
+import io.netty.handler.ssl.util.SelfSignedCertificate;
 import io.rsocket.frame.decoder.PayloadDecoder;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.SpringApplication;
@@ -17,6 +22,7 @@ import org.springframework.messaging.rsocket.annotation.support.RSocketMessageHa
 import org.springframework.security.rsocket.PayloadSocketAcceptorInterceptor;
 
 import java.net.InetAddress;
+import java.security.SecureRandom;
 import java.util.stream.Collectors;
 
 @SpringBootApplication
@@ -34,6 +40,14 @@ public class RsocketSpringSecurityDemoApplication {
 	@Bean
 	RSocketServerFactory rSocketServerFactory(ReactorResourceFactory resourceFactory,
 											  ObjectProvider<ServerRSocketFactoryCustomizer> customizers) throws Exception {
+//		SslContext sslServer;
+//		final SslProvider sslProvider = SslProvider.JDK;
+//		SecureRandom random = new SecureRandom();
+//		SelfSignedCertificate ssc = new SelfSignedCertificate("techtalks.lk", random, 1024);
+//		sslServer =
+//				SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey())
+//						.sslProvider(sslProvider)
+//						.build();
 		NettyRSocketServerFactory factory = new NettyRSocketServerFactory();
 		factory.setResourceFactory(resourceFactory);
 		factory.setTransport(RSocketServer.TRANSPORT.TCP);
