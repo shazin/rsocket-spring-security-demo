@@ -33,7 +33,8 @@ public class ConsumerApplication {
 	@Bean
 	public RSocketRequester rSocketRequester(RSocketStrategies rSocketStrategies) {
 		//UsernamePasswordMetadata credentials = new UsernamePasswordMetadata("setup", "sha123");
-        BearerTokenMetadata credentials = new BearerTokenMetadata("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNldHVwIiwiaWF0IjoxNTE2MjM5MDIyLCJzY29wZSI6WyJTRVRVUCJdfQ.1RpzzbM6FskucjB71oXXG-t8FMBmaLYWv7ZJXojMyQA");
+        //BearerTokenMetadata credentials = new BearerTokenMetadata("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNldHVwIiwiaWF0IjoxNTE2MjM5MDIyLCJzY29wZSI6WyJTRVRVUCJdfQ.1RpzzbM6FskucjB71oXXG-t8FMBmaLYWv7ZJXojMyQA");
+		BearerTokenMetadata credentials = new BearerTokenMetadata("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNldHVwIiwiaWF0IjoxNTE2MjM5MDIyLCJzY29wZSI6WyJTRVRVUCJdfQ.l2N5TT7hsN6KJLHwzYXxjS48-fqIqjNWHcJ13ll3ExU");
 		return RSocketRequester.builder()
 				.dataMimeType(MimeTypeUtils.APPLICATION_JSON)
 				.rsocketStrategies(rSocketStrategies)
@@ -67,7 +68,8 @@ class TaxisRestController {
 	@GetMapping("/taxis/{type}/{from}/{to}")
 	public Publisher<TaxisResponse> taxis(@PathVariable String type, @PathVariable String from, @PathVariable String to) {
 		//UsernamePasswordMetadata credentials = new UsernamePasswordMetadata("shazin", "sha123");
-        BearerTokenMetadata credentials = new BearerTokenMetadata("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNoYXppbiIsImlhdCI6MTUxNjIzOTAyMiwic2NvcGUiOlsiQURNSU4iXX0.fiozzAM38Pz9tc-0PdojgYpco49W6SSh9mtYUipiFpM");
+        //BearerTokenMetadata credentials = new BearerTokenMetadata("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNoYXppbiIsImlhdCI6MTUxNjIzOTAyMiwic2NvcGUiOlsiQURNSU4iXX0.fiozzAM38Pz9tc-0PdojgYpco49W6SSh9mtYUipiFpM");
+		BearerTokenMetadata credentials = new BearerTokenMetadata("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNoYXppbiIsImlhdCI6MTUxNjIzOTAyMiwic2NvcGUiOlsiQURNSU4iXX0.lieYZKrPVtEoH2prh_H2ae4z8iBCMc9wz82CWRHtRUI");
 		return rSocketRequester
 				.route("taxis")
 				.metadata(credentials, BearerTokenMetadata.BEARER_AUTHENTICATION_MIME_TYPE)
@@ -78,13 +80,15 @@ class TaxisRestController {
 	@GetMapping(value = "/taxis/sse/{type}/{from}/{to}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
 	public Publisher<TaxisResponse> taxisStream(@PathVariable String type, @PathVariable String from, @PathVariable String to) {
 		//UsernamePasswordMetadata credentials = new UsernamePasswordMetadata("shazin", "sha123");
-        BearerTokenMetadata credentials = new BearerTokenMetadata("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNoYXppbiIsImlhdCI6MTUxNjIzOTAyMiwic2NvcGUiOlsiQURNSU4iXX0.fiozzAM38Pz9tc-0PdojgYpco49W6SSh9mtYUipiFpM");
+        //BearerTokenMetadata credentials = new BearerTokenMetadata("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNoYXppbiIsImlhdCI6MTUxNjIzOTAyMiwic2NvcGUiOlsiQURNSU4iXX0.fiozzAM38Pz9tc-0PdojgYpco49W6SSh9mtYUipiFpM");
+		BearerTokenMetadata credentials = new BearerTokenMetadata("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6InNoYXppbiIsImlhdCI6MTUxNjIzOTAyMiwic2NvcGUiOlsiQURNSU4iXX0.lieYZKrPVtEoH2prh_H2ae4z8iBCMc9wz82CWRHtRUI");
 		return rSocketRequester
 				.route("taxis-stream")
 				.metadata(credentials, BearerTokenMetadata.BEARER_AUTHENTICATION_MIME_TYPE)
 				.data(new TaxisRequest(type, from, to))
 				.retrieveFlux(TaxisResponse.class);
 	}
+
 
 }
 
